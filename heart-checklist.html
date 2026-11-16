@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>台北順起來｜HEART 政見清單</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#fff8f4; --card:#ffffff; --ink:#211d1d; --muted:#665b57;
+  --primary:#db6a41; --action:#ad4d2a; --border:#efc5ad; --yellow:#fcea8b;
+  --h:#db6a41; --e:#df7e2c; --a:#e18a81; --r:#7dbc91; --t:#e6b881;
+  --check-ink:#ffffff;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --surface:#1c1817; --card:#262120; --ink:#f6ece6; --muted:#c2b3ad;
+    --primary:#e8825d; --action:#f09b78; --border:#5a3a2e; --yellow:#5c5222;
+    --check-ink:#1c1817; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --surface:#1c1817; --card:#262120; --ink:#f6ece6; --muted:#c2b3ad;
+  --primary:#e8825d; --action:#f09b78; --border:#5a3a2e; --yellow:#5c5222;
+  --check-ink:#1c1817; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--surface);color:var(--ink);
+  font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.6}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+
+header{padding:48px 0 28px;border-bottom:3px solid var(--primary)}
+.kicker{margin:0;color:var(--muted);font-weight:700;font-size:1rem}
+h1{margin:4px 0 0;font-weight:900;font-size:clamp(2.2rem,8vw,4.6rem);line-height:1.1;letter-spacing:.02em}
+.slogan{margin:10px 0 0;font-weight:900;font-size:clamp(1.2rem,4vw,1.8rem);color:var(--primary)}
+.heart{display:flex;gap:6px;margin-top:22px;flex-wrap:wrap}
+.heart a{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:999px;
+  font-weight:900;font-size:1.3rem;color:#211d1d;text-decoration:none;transition:transform .16s}
+.heart a:hover{transform:translateY(-2px)}
+.heart a:focus-visible,button:focus-visible,label:focus-within{outline:3px solid var(--action);outline-offset:3px}
+
+.progress{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);padding:14px 0;border-bottom:1px solid var(--border)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.progress .wrap{display:flex;align-items:center;gap:14px}
+.bar{flex:1;height:12px;border-radius:999px;background:var(--border);overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:var(--primary);border-radius:999px;transition:width .3s}
+.count{font-weight:900;font-variant-numeric:tabular-nums;white-space:nowrap}
+button.reset{font:inherit;font-weight:700;font-size:.9rem;border:1px solid var(--action);color:var(--action);background:transparent;
+  border-radius:999px;padding:6px 14px;cursor:pointer;min-height:36px}
+button.reset:hover{background:var(--yellow);color:var(--ink)}
+
+main{padding:32px 0 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px}
+section{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:22px 20px 14px;position:relative;overflow:hidden}
+section::before{content:"";position:absolute;inset:0 0 auto;height:6px;background:var(--c)}
+.sh{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.letter{font-size:3rem;font-weight:900;line-height:1;color:var(--c)}
+.en{font-weight:500;color:var(--muted);font-size:1.05rem}
+h2{margin:0;font-size:1.3rem;font-weight:900;width:100%}
+.done{font-size:.85rem;color:var(--muted);font-weight:700;margin-left:auto}
+ul{list-style:none;margin:0;padding:0}
+li label{display:flex;gap:12px;align-items:flex-start;padding:10px 6px;border-radius:12px;cursor:pointer;transition:background-color .16s}
+li label:hover{background:color-mix(in srgb,var(--yellow) 55%,transparent)}
+li+li label{border-top:1px dashed var(--border);border-radius:0}
+input{position:absolute;opacity:0;pointer-events:none}
+.box{flex:none;width:22px;height:22px;margin-top:2px;border:2px solid var(--ink);border-radius:6px;display:grid;place-items:center;transition:background-color .16s}
+.box svg{width:14px;height:14px;opacity:0;stroke:var(--check-ink)}
+input:checked+.box{background:var(--primary);border-color:var(--primary)}
+input:checked+.box svg{opacity:1}
+input:checked~.txt{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--primary);text-decoration-thickness:2px}
+.txt{font-weight:500}
+
+footer{border-top:1px solid var(--border);padding:22px 0 40px;color:var(--muted);font-size:.9rem}
+footer a{color:var(--action);font-weight:700}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <p class="kicker">你的市長</p>
+    <h1>沈伯洋</h1>
+    <p class="slogan">有心・用心・台北順起來</p>
+    <nav class="heart" aria-label="跳到政見分類">
+      <a href="#habitat" style="background:var(--h)">H</a>
+      <a href="#empower" style="background:var(--e)">E</a>
+      <a href="#accompany" style="background:var(--a)">A</a>
+      <a href="#resilience" style="background:var(--r)">R</a>
+      <a href="#time" style="background:var(--t)">T</a>
+    </nav>
+  </div>
+</header>
+
+<div class="progress" role="status">
+  <div class="wrap">
+    <div class="bar" aria-hidden="true"><span id="bar"></span></div>
+    <span class="count" id="count">0 / 0</span>
+    <button class="reset" id="reset" type="button">全部清除</button>
+  </div>
+</div>
+
+<main class="wrap" id="list"></main>
+
+<footer>
+  <div class="wrap">
+    內容整理自競選文宣「政見」欄。更多市政願景請見 <a href="https://puma.taipei" target="_blank" rel="noopener">沈伯洋官方網站</a>。
+    勾選紀錄只存在你這台裝置的瀏覽器裡。
+  </div>
+</footer>
+
+<script>
+const data=[
+ {id:"habitat",l:"H",en:"abitat",zh:"空間，順起來",c:"--h",items:[
+  "培育都市微森林，台北降溫","打造亞洲第一登山觀光城","兩河流域再造，改善河濱空間","建構首都文化徑",
+  "擴大提供青年宅及婚育宅","加速老宅延壽，市府服務送到家","興建圓山超級市民運動中心","籌建關渡國際足球場"]},
+ {id:"empower",l:"E",en:"mpower",zh:"機會，給出來",c:"--e",items:[
+  "設立城市青年基金，滿22歲領50萬","補助跨平台跨模型青年 AI 錢包","8年20億台北青年圓夢計畫",
+  "45歲以上市民轉職創業支持","成立市政智庫：台北研究院","台灣科技新創基地進駐北士科"]},
+ {id:"accompany",l:"A",en:"ccompany",zh:"陪伴，不孤單",c:"--a",items:[
+  "新增0至18歲親子同行卡，每月600點","設置家長版1999，提供家庭服務一站通","增加長照機構床位，落實在地安老",
+  "健身小巴進社區，敬老卡多元使用","擴大社區共照、在宅醫療及失智友善設計中心","發放單身者運動幣及文化幣","新增45～65歲心理諮商補助"]},
+ {id:"resilience",l:"R",en:"esilience",zh:"韌性，有安心",c:"--r",items:[
+  "0～6歲兒童腸病毒疫苗免費","補助50歲以上皮蛇疫苗","人本交通，目標通學區零死亡","建置社區微電網，強化電力韌性",
+  "推動公務員及教師行政減壓計畫","降低國中小師生比","補足校園特教及輔導人力","設置「夜間市長」，重視夜間治理",
+  "設置「城市設計長」，促進城市美學","推動無限城論壇，台北走向國際"]},
+ {id:"time",l:"T",en:"ime",zh:"時間，省下來",c:"--t",items:[
+  "週週有臨托，助家長喘息","補助企業，擴大實施彈性工時","設置運動驛站，運動零折返",
+  "TPASS 納入共享電動機車等","北捷安全總體檢，通勤零障礙"]}
+];
+const KEY="heart-checklist-v1";
+let state={};
+try{state=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){state={}}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}};
+const tick='<svg viewBox="0 0 16 16" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
+const main=document.getElementById("list");
+let total=0;
+data.forEach(s=>{
+  const sec=document.createElement("section");
+  sec.id=s.id;sec.style.setProperty("--c",`var(${s.c})`);
+  sec.innerHTML=`<div class="sh"><span class="letter">${s.l}</span><span class="en">${s.en}</span><span class="done" data-sec="${s.id}"></span><h2>${s.zh}</h2></div><ul></ul>`;
+  const ul=sec.querySelector("ul");
+  s.items.forEach((t,i)=>{
+    const k=`${s.id}-${i}`;total++;
+    const li=document.createElement("li");
+    li.innerHTML=`<label><input type="checkbox" data-k="${k}" data-sec="${s.id}"${state[k]?" checked":""}><span class="box">${tick}</span><span class="txt">${t}</span></label>`;
+    ul.appendChild(li);
+  });
+  main.appendChild(sec);
+});
+function update(){
+  const boxes=[...document.querySelectorAll("input[type=checkbox]")];
+  const n=boxes.filter(b=>b.checked).length;
+  document.getElementById("count").textContent=`已勾 ${n} / ${total}`;
+  document.getElementById("bar").style.width=(n/total*100)+"%";
+  data.forEach(s=>{
+    const bs=boxes.filter(b=>b.dataset.sec===s.id);
+    document.querySelector(`.done[data-sec="${s.id}"]`).textContent=`${bs.filter(b=>b.checked).length} / ${bs.length}`;
+  });
+}
+main.addEventListener("change",e=>{const k=e.target.dataset.k;if(!k)return;state[k]=e.target.checked;save();update()});
+document.getElementById("reset").addEventListener("click",()=>{
+  state={};save();document.querySelectorAll("input[type=checkbox]").forEach(b=>b.checked=false);update();
+});
+update();
+</script>
+</body>
+</html>
